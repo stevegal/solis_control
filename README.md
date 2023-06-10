@@ -1,5 +1,7 @@
 # solis_control
-solis control pyscript for home assistant
+solis control pyscript for home assistant.
+NOTE: you need the (pyscript plugin][https://hacs-pyscript.readthedocs.io/en/latest/] installed.
+This script then just goes into the pyscript folder on your install. Once it's there, just call it as below.
 
 ## Config
 call the service like:

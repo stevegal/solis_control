@@ -3,6 +3,14 @@ solis control pyscript for home assistant.
 NOTE: you need the (pyscript plugin][https://hacs-pyscript.readthedocs.io/en/latest/] installed.
 This script then just goes into the pyscript folder on your install. Once it's there, just call it as below.
 
+The pyscript requires the `all_all_gobal_imports: true` to be set in the configuration either from the UI or in your glabl configuration yaml.
+
+```
+pyscript:
+  allow_all_imports: true
+  hass_is_global: true
+```
+
 ## Config
 call the service like:
 ```
@@ -34,3 +42,4 @@ data:
     password: PASSWORD
     plantId: PLANT_ID
 ```
+Note the configuration items like `key_id`, `secret`, `plantId` and `password` must be defined as a string so wrap them in `"` to be sure.

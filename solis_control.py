@@ -55,7 +55,7 @@ def prepare_header(config: dict[str,str], body: str, canonicalized_resource: str
     return header
     
 def control_body(inverterId, chargeSettings) -> str:
-    body = '{"inverterId":"'+inverterId+'", "cid":"103","value":"'
+    body = '{"inverterId":"'+inverterId+'", "cid":"4644","value":"'
     for index, time in enumerate(chargeSettings):
         body = body +time['chargeCurrent']+","+time['dischargeCurrent']+","+time['chargeStartTime']+","+time['chargeEndTime']+","+time['dischargeStartTime']+","+time['dischargeEndTime']
         if (index !=2):

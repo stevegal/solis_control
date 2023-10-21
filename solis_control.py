@@ -55,7 +55,7 @@ def prepare_header(config: dict[str,str], body: str, canonicalized_resource: str
     return header
     
 def control_body(inverterId, chargeSettings) -> str:
-    body = '{"inverterId":"'+inverterId+'", "cid":"4644","value":"'
+    body = '{"inverterId":"'+inverterId+'", "cid":"103","value":"'
     for index, time in enumerate(chargeSettings):
         body = body +time['chargeCurrent']+","+time['dischargeCurrent']+","+time['chargeStartTime']+","+time['chargeEndTime']+","+time['dischargeStartTime']+","+time['dischargeEndTime']
         if (index !=2):
@@ -67,7 +67,7 @@ async def set_control_times(token, inverterId, config, times):
     headers = prepare_header(config, body, CONTROL_URL)
     headers['token']= token
     response = await session.post("https://www.soliscloud.com:13333"+CONTROL_URL, data = body, headers = headers)
-    log.warning(response.text())
+    log.warning("solis response:"+response.text())
     
 async def login(config):
     body = '{"userInfo":"'+config['username']+'","passWord":"'+ passwordEncode(config['password'])+'"}'

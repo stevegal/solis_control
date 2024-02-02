@@ -1,11 +1,5 @@
 # solis_control
 
-# IMPORTANT - LOOKS LIKE SOLIS IS UPDATING TO A V3 VERSION - UNSTABLE FOR THE MOMENT
-I'm waiting on documentation for v3 api, and it looks like the v2 control api cid value has been modified for the v3 release and that has changed has
-also changed the v2 value! I've looked at the web control version and has some success with changing the to 4644 instead of 103 (from looking at the web site value)
-but issue #6 reporter has reported different values, so please make sure you are comfortable before changing anything as I have no appropriate documentation
-and misuse could damage your inverter.
-
 solis control pyscript for home assistant.
 NOTE: you need the (pyscript plugin][https://hacs-pyscript.readthedocs.io/en/latest/] installed.
 This script then just goes into the pyscript folder on your install. Once it's there, just call it as below.

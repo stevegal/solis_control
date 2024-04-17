@@ -1,7 +1,7 @@
 # solis_control
 
 solis control pyscript for home assistant.
-NOTE: you need the (pyscript plugin][https://hacs-pyscript.readthedocs.io/en/latest/] installed.
+NOTE: you need the [pyscript plugin](https://hacs-pyscript.readthedocs.io/en/latest/) installed.
 This script then just goes into the pyscript folder on your install. Once it's there, just call it as below.
 
 The pyscript requires the `all_all_gobal_imports: true` to be set in the configuration either from the UI or in your glabl configuration yaml.
@@ -45,4 +45,4 @@ data:
 ```
 Note the configuration items like `key_id`, `secret`, `plantId` and `password` must be defined as a string so wrap them in `"` to be sure.
 
-Note to find the plantId please follow the excellent instructions in (solis-sensor)[https://github.com/hultenvp/solis-sensor]
+Note to find the plantId please follow the excellent instructions in [solis-sensor](https://github.com/hultenvp/solis-sensor)

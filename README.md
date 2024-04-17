@@ -44,3 +44,5 @@ data:
     plantId: PLANT_ID
 ```
 Note the configuration items like `key_id`, `secret`, `plantId` and `password` must be defined as a string so wrap them in `"` to be sure.
+
+Note to find the plantId please follow the excellent instructions in (solis-sensor)[https://github.com/hultenvp/solis-sensor]

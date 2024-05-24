@@ -3,6 +3,7 @@ import hashlib
 import hmac
 import base64
 import json
+import re
 from http import HTTPStatus
 from datetime import datetime, timezone
 
@@ -70,13 +71,14 @@ async def set_control_times(token, inverterId, config, times):
     log.warning("solis response:"+response.text())
     
 async def login(config):
-    body = '{"userInfo":"'+config['username']+'","passWord":"'+ passwordEncode(config['password'])+'"}'
+    body = '{"userInfo":"'+config['username']+'","password":"'+ passwordEncode(config['password'])+'"}'
     header = prepare_header(config, body, LOGIN_URL)
     response = await session.post("https://www.soliscloud.com:13333"+LOGIN_URL, data = body, headers = header)
     status = response.status
     result = ""
+    r = json.loads(re.sub(r'("(?:\\?.)*?")|,\s*([]}])', r'\1\2', response.text()))
     if status == HTTPStatus.OK:
-        result = response.json()
+        result = r
     else:
         log.warning(status)
         result = response.text()

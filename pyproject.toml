@@ -1,0 +1,17 @@
+[project]
+requires-python = ">=3.12.1"
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+select = ["E", "W"]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+# Use single quotes in `ruff format`.
+quote-style = "single"

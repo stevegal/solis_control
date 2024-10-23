@@ -6,6 +6,7 @@
         "digestmod",
         "hass",
         "homeassistant",
+        "pyproject",
         "yuanzhi"
     ]
 }

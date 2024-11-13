@@ -38,3 +38,6 @@ Comments aren't supported inside YAML multi-line blocks, so here are some commen
 {% set amp_hours_needed = (watts_hours_needed/charge_hours) / voltage %}
 {{ min(max(amp_hours_needed | round(method="ceil"), 1), max_charge_amps) }}
 ```
+
+## Dashboard card
+Included alongside this automation is a small markdown dashboard card that shows how to print the upcoming charge current that will be set.  This will get updated as your battery is used.  Note that this dashboard will update the state of the charge during charge periods, but the automation will not.  So the value is only accurate just before the charge period starts.

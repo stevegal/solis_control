@@ -1,0 +1,19 @@
+type: markdown
+title: Information
+content: |
+  {% set voltage = 50.0 %}
+  {% set battery_capacity_in_watts = 3650 %}
+  {% set max_charge_amps = 37.5 %}
+  {% set charge_hours = 2 if now().hour > 16 and now().hour < 23 else 3 %}
+  {% set battery_soc = float(states('sensor.solis_remaining_battery_capacity'), 0.0) %}
+  {% set battery_percent_needed = (100.0 - battery_soc) | round(method="ceil") %}
+  {% set watts_hours_needed = battery_capacity_in_watts * (battery_percent_needed/100.0) %}
+  {% set amp_hours_needed = (watts_hours_needed/charge_hours) / voltage %}
+
+
+  <table width="100%">
+    <tr>
+      <th valign='top' align='left'>Next Charge Current</th>
+      <td>{{ max(amp_hours_needed | round(method="ceil"), 1) }} A</td>
+    </tr>
+  </table> 

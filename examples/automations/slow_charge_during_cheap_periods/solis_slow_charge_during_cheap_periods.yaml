@@ -32,12 +32,9 @@ actions:
     data:
       settings:
         - chargeCurrent: >-
-            {% set voltage = 50.0 %} # Your batteries' voltage.
-            {% set max_charge_amps = 37.5 %} # The maximum amps your batteries can charge.
-            # Octopus Cozy has two 3-hour slots and one 2-hour slot.  Figure out how
-            # many hours we have this slot.
+            {% set voltage = 50.0 %}
+            {% set max_charge_amps = 37.5 %}
             {% set charge_hours = 2 if now().hour > 16 and now().hour < 23 else 3 %}
-            # Calculate lowest amps to charge to get to 100% by the end.
             {% set battery_soc = float(states('sensor.solis_remaining_battery_capacity'), 0.0) %}
             {% set battery_percent_needed = (100.0 - battery_soc) | round(method="ceil") %}
             {% set watts_hours_needed = 3650 * (battery_percent_needed/100.0) %}

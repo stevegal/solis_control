@@ -1,0 +1,69 @@
+alias: "Solis: Slow Charge During Cheap Periods"
+description: "Every five minutes, set the charge rate of the batteries such that they will be 100% charged by the end of the upcoming cheap period."
+triggers:
+  # Trigger this automation every 5 minutes.
+  - trigger: time_pattern
+    hours: /1
+    minutes: /5
+conditions:
+  # Don't run during the cheap periods as once we enter the 
+  # cheap period we don't want to adjust the rate of charge 
+  # to the next cheap period.
+  - condition: and
+    conditions:
+      - condition: not
+        conditions:
+          - condition: time
+            after: "04:00:59"
+            before: "06:59:00"
+      - condition: not
+        conditions:
+          - condition: time
+            after: "13:00:59"
+            before: "17:59:00"
+      - condition: not
+        conditions:
+          - condition: time
+            after: "22:00:59"
+            before: "23:59:00"
+actions:
+  - action: pyscript.solis_control_battery_charge
+    metadata: {}
+    data:
+      settings:
+        - chargeCurrent: >-
+            {% set voltage = 50.0 %} # Your batteries' voltage.
+            {% set max_charge_amps = 37.5 %} # The maximum amps your batteries can charge.
+            # Octopus Cozy has two 3-hour slots and one 2-hour slot.  Figure out how
+            # many hours we have this slot.
+            {% set charge_hours = 2 if now().hour > 16 and now().hour < 23 else 3 %}
+            # Calculate lowest amps to charge to get to 100% by the end.
+            {% set battery_soc = float(states('sensor.solis_remaining_battery_capacity'), 0.0) %}
+            {% set battery_percent_needed = (100.0 - battery_soc) | round(method="ceil") %}
+            {% set watts_hours_needed = 3650 * (battery_percent_needed/100.0) %}
+            {% set amp_hours_needed = (watts_hours_needed/charge_hours) / voltage %}
+            {{ min(max(amp_hours_needed | round(method="ceil"), 1), max_charge_amps) }}
+          dischargeCurrent: "0"
+          chargeStartTime: "04:00"
+          chargeEndTime: "06:59"
+          dischargeStartTime: "00:00"
+          dischargeEndTime: "00:00"
+        - chargeCurrent: "0"
+          dischargeCurrent: "0"
+          chargeStartTime: "13:00"
+          chargeEndTime: "15:59"
+          dischargeStartTime: "00:00"
+          dischargeEndTime: "00:00"
+        - chargeCurrent: "0"
+          dischargeCurrent: "0"
+          chargeStartTime: "22:00"
+          chargeEndTime: "23:59"
+          dischargeStartTime: "00:00"
+          dischargeEndTime: "00:00"
+      config:
+        secret: <<API KEY>>
+        key_id: "<<KEY ID>>"
+        username: <<EMAIL_ADDRESS>>
+        password: <<PASSWORD>>
+        plantId: "<<PLAND_ID>>"
+mode: single
